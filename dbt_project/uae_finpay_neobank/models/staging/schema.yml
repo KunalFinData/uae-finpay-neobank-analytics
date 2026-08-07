@@ -1,0 +1,70 @@
+﻿version: 2
+
+sources:
+  - name: raw
+    schema: raw
+    tables:
+      - name: transactions
+      - name: onboarding
+      - name: churn_signals
+      - name: ml_churn_predictions
+      - name: ml_anomaly_scores
+
+models:
+  - name: stg_transactions
+    description: Cleaned neobank transaction data from PaySim 100k sample with UAE staging layer.
+    columns:
+      - name: transaction_id
+        tests:
+          - unique
+          - not_null
+      - name: customer_id
+        tests:
+          - not_null
+      - name: amount_aed
+        tests:
+          - not_null
+      - name: emirate
+        tests:
+          - not_null
+          - accepted_values:
+              values: ["DUBAI", "ABU DHABI", "SHARJAH", "AJMAN"]
+      - name: payment_channel
+        tests:
+          - not_null
+          - accepted_values:
+              values: ["card", "wallet", "bank_transfer"]
+      - name: is_fraud
+        tests:
+          - not_null
+          - accepted_values:
+              values: [0, 1]
+
+  - name: stg_customers
+    description: Cleaned customer onboarding data from Python-generated synthetic dataset.
+    columns:
+      - name: customer_id
+        tests:
+          - unique
+          - not_null
+      - name: cac_aed
+        tests:
+          - not_null
+      - name: kyc_completed
+        tests:
+          - not_null
+          - accepted_values:
+              values: [0, 1]
+
+  - name: stg_churn_signals
+    description: Churn signals adapted from Telco dataset for neobank customer lifecycle analysis.
+    columns:
+      - name: customer_id
+        tests:
+          - unique
+          - not_null
+      - name: is_churned
+        tests:
+          - not_null
+          - accepted_values:
+              values: [0, 1]
