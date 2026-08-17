@@ -219,5 +219,4 @@ __marimo__/
 
 data/
 *.csv
-charts/
 notebooks/.ipynb_checkpoints/

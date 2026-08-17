@@ -3,7 +3,7 @@
 -- Flags unusual transactions without fraud labels
 
 WITH anomalies AS (
-    SELECT * FROM {{ source("raw", "ml_anomaly_scores") }}
+    SELECT * FROM {{ source('raw', 'ml_anomaly_scores') }}
 )
 
 SELECT
@@ -15,11 +15,11 @@ SELECT
     ROUND(anomaly_confidence::NUMERIC, 4)      AS anomaly_confidence,
     CASE
         WHEN is_anomaly = 1
-         AND amount_aed >= 10000  THEN "HIGH_PRIORITY"
+         AND amount_aed >= 10000  THEN 'HIGH_PRIORITY'
         WHEN is_anomaly = 1
-         AND amount_aed >= 5000   THEN "MEDIUM_PRIORITY"
-        WHEN is_anomaly = 1       THEN "LOW_PRIORITY"
-        ELSE                           "NORMAL"
+         AND amount_aed >= 5000   THEN 'MEDIUM_PRIORITY'
+        WHEN is_anomaly = 1       THEN 'LOW_PRIORITY'
+        ELSE                           'NORMAL'
     END                                        AS anomaly_priority
 FROM anomalies
 ORDER BY anomaly_confidence DESC
