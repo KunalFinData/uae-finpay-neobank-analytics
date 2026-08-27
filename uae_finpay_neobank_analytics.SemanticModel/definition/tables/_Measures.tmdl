@@ -1,0 +1,104 @@
+table _Measures
+	lineageTag: e1f4be4e-98f1-446f-89d8-d4a0fba6eaf1
+
+	measure 'Total Revenue at Risk (AED)' = SUM(fct_churn_predictions[revenue_at_risk_aed])
+		formatString: "AED"#,0;-"AED"#,0;"AED"#,0
+		lineageTag: 1bdb0852-fbc5-4884-97ba-db931a3822de
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-AE"}
+
+	measure 'Predicted Churners' = SUM(fct_churn_predictions[predicted_churn_flag])
+		formatString: 0
+		lineageTag: 6ca2a7d0-159f-4658-b233-e6637cfb0570
+
+	measure 'Avg Churn Probability %' = AVERAGE(fct_churn_predictions[churn_probability_pct])
+		lineageTag: 181c3ed9-be10-4041-b3b2-e5d139743737
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Total LTV (AED)' = SUM(fct_cac_ltv[total_ltv_aed])
+		lineageTag: 20ebf6f2-ed32-4ba8-9251-43acf1b4fcc3
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Total CAC (AED)' = SUM(fct_cac_ltv[total_cac_aed])
+		lineageTag: bd117dec-3693-4abf-a574-7ecdd90dd466
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Blended LTV:CAC Ratio' = DIVIDE([Total LTV (AED)], [Total CAC (AED)])
+		lineageTag: ec0e2759-0c33-4983-bf6c-1a3bc04a88a1
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Total Customers Onboarded' = SUM(fct_onboarding_funnel[total_signups])
+		formatString: #,0
+		lineageTag: b3b8dcd0-7caf-4ccb-bda4-86c28d264380
+
+	measure 'Overall KYC Conversion %' = AVERAGE(fct_onboarding_funnel[kyc_conversion_rate_pct])
+		lineageTag: 8a9ca37f-afc4-4d5a-a0fc-4013478cb26e
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'High Priority Anomalies' =
+			CALCULATE(
+			    COUNTROWS(fct_anomaly_scores),
+			    fct_anomaly_scores[anomaly_priority] = "HIGH_PRIORITY"
+			)
+		formatString: 0
+		lineageTag: 06c0038f-0548-4f7a-8448-5093f17ff1a3
+
+	measure 'Total Anomaly Exposure (AED)' =
+			CALCULATE(
+			    SUM(fct_anomaly_scores[amount_aed]),
+			    fct_anomaly_scores[is_anomaly] = 1
+			)
+		lineageTag: 696bc3f9-c242-40a5-b5e1-a3a741841798
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'High Value At Risk Customers' =
+			CALCULATE(
+			    COUNTROWS(fct_churn_signals),
+			    fct_churn_signals[priority_flag] = "HIGH_VALUE_AT_RISK"
+			)
+		formatString: 0
+		lineageTag: 57824a89-c18b-4052-a92c-e39c3a126bdb
+
+	measure 'Churn Customer Count' = COUNTROWS(fct_churn_predictions)
+		formatString: 0
+		lineageTag: a12f86cc-5db6-4507-9bac-f97dc89c841d
+
+	measure 'Executive Insight' =
+			
+			"Revenue at risk: AED " &
+			FORMAT([Total Revenue at Risk (AED)], "#,##0") &
+			" | LTV:CAC " &
+			FORMAT([Blended LTV:CAC Ratio], "0.00") &
+			"x | " &
+			FORMAT([Total Customers Onboarded], "#,##0") &
+			" customers onboarded"
+		lineageTag: fa0e5efd-507a-44b8-8dbb-c3134d2c89fa
+
+	measure 'Churn Insight' = "Avg churn probability: 26.4% | 179 high-value customers at risk — prioritise CRITICAL-tier outreach"
+		lineageTag: 17ff6f1e-efaf-4ebb-beff-a0bbf2a8a698
+
+	measure 'Segment Insight' =
+			
+			"Growth Segment: LTV:CAC ~2–3x | AED 44.05bn synthetic exposure | 4,933 high-priority anomalies flagged for review"
+		lineageTag: 3cac1b45-882c-401a-ad8a-052023a4a643
+
+	column x
+		lineageTag: 2508832b-79de-4abd-8066-ebe465da873d
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [x]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _Measures = calculated
+		mode: import
+		source = DATATABLE("x", STRING, {{"placeholder"}})
+
+	annotation PBI_Id = 21d02c8346704740b802065f22728592
+

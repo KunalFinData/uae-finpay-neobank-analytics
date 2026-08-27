@@ -1,0 +1,98 @@
+table fct_wallet_adoption
+	lineageTag: 465ff173-0777-4d0f-bfb4-b198ac304f3c
+
+	column transaction_month
+		dataType: string
+		lineageTag: 78503d83-0980-4ea2-87b5-f5d51c8b1708
+		summarizeBy: none
+		sourceColumn: transaction_month
+
+		annotation SummarizationSetBy = Automatic
+
+	column emirate
+		dataType: string
+		lineageTag: 5534a1b7-8348-481f-80df-e090a6273700
+		summarizeBy: none
+		sourceColumn: emirate
+
+		annotation SummarizationSetBy = Automatic
+
+	column payment_channel
+		dataType: string
+		lineageTag: fcb5ee1d-2f10-41c3-b477-b3bf81245907
+		summarizeBy: none
+		sourceColumn: payment_channel
+
+		annotation SummarizationSetBy = Automatic
+
+	column transaction_count
+		dataType: int64
+		formatString: 0
+		lineageTag: f7dfcb5f-7074-4f46-84ee-729927536a21
+		summarizeBy: sum
+		sourceColumn: transaction_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_volume_aed
+		dataType: double
+		lineageTag: abbb58f3-222e-43c9-8a23-1c97d8b03e9c
+		summarizeBy: sum
+		sourceColumn: total_volume_aed
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column unique_customers
+		dataType: int64
+		formatString: 0
+		lineageTag: 2b3f11d9-c2fb-45c1-bc8a-f8354c306693
+		summarizeBy: sum
+		sourceColumn: unique_customers
+
+		annotation SummarizationSetBy = Automatic
+
+	column avg_transaction_aed
+		dataType: double
+		lineageTag: 35985017-0887-46ce-a6d4-7446b4770dd6
+		summarizeBy: sum
+		sourceColumn: avg_transaction_aed
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column channel_share_pct
+		dataType: double
+		lineageTag: 288c6308-8eca-4fd9-aa43-d18091c3176c
+		summarizeBy: sum
+		sourceColumn: channel_share_pct
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column volume_share_pct
+		dataType: double
+		lineageTag: 1885bee5-b841-46ed-ac8d-cadbfb515a56
+		summarizeBy: sum
+		sourceColumn: volume_share_pct
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition fct_wallet_adoption = m
+		mode: import
+		source =
+				let
+				    Source = PostgreSQL.Database("localhost", "neobank_db"),
+				    dbt_dev_fct_wallet_adoption = Source{[Schema="dbt_dev",Item="fct_wallet_adoption"]}[Data]
+				in
+				    dbt_dev_fct_wallet_adoption
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

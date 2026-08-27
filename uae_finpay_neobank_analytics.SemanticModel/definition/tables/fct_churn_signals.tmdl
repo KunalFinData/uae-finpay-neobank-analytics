@@ -1,0 +1,164 @@
+table fct_churn_signals
+	lineageTag: 13e04b6d-6373-4498-8e81-f52fbb2ca83a
+
+	column customer_id
+		dataType: string
+		lineageTag: 5b7ba531-3403-4b04-b184-42632f2a9ff5
+		summarizeBy: none
+		sourceColumn: customer_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column emirate
+		dataType: string
+		lineageTag: 536d61da-ec37-4901-a4b5-95ddbdd4a7bc
+		summarizeBy: none
+		sourceColumn: emirate
+
+		annotation SummarizationSetBy = Automatic
+
+	column tenure_months
+		dataType: int64
+		formatString: 0
+		lineageTag: a0f2c9c5-c06a-46a6-9924-7cfc3df86d2e
+		summarizeBy: sum
+		sourceColumn: tenure_months
+
+		annotation SummarizationSetBy = Automatic
+
+	column monthly_revenue_aed
+		dataType: double
+		lineageTag: 9d9c93d6-8aa5-42ba-b755-2c8a830fa0ca
+		summarizeBy: sum
+		sourceColumn: monthly_revenue_aed
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column has_wallet
+		dataType: int64
+		formatString: 0
+		lineageTag: ebb6ea4f-501b-4cec-8fce-2e026877c1c2
+		summarizeBy: sum
+		sourceColumn: has_wallet
+
+		annotation SummarizationSetBy = Automatic
+
+	column has_savings
+		dataType: int64
+		formatString: 0
+		lineageTag: 48543882-accc-4ac9-be0b-01e2661b0375
+		summarizeBy: sum
+		sourceColumn: has_savings
+
+		annotation SummarizationSetBy = Automatic
+
+	column has_investment
+		dataType: int64
+		formatString: 0
+		lineageTag: cfda7fa6-e42c-43fe-a6f2-bdc8d62317bd
+		summarizeBy: sum
+		sourceColumn: has_investment
+
+		annotation SummarizationSetBy = Automatic
+
+	column feature_adoption_count
+		dataType: int64
+		formatString: 0
+		lineageTag: 113a00b9-cf01-41cb-a624-6d635785bf79
+		summarizeBy: sum
+		sourceColumn: feature_adoption_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_churned
+		dataType: int64
+		formatString: 0
+		lineageTag: 48c9a4dc-540e-4093-8bdb-9ec1bae869f9
+		summarizeBy: sum
+		sourceColumn: is_churned
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_lifecycle_stage
+		dataType: string
+		lineageTag: 7a75f9e3-b623-4165-9e26-5c47e64625d7
+		summarizeBy: none
+		sourceColumn: customer_lifecycle_stage
+
+		annotation SummarizationSetBy = Automatic
+
+	column contract_type
+		dataType: string
+		lineageTag: b8932e9b-c8db-4e69-a077-090f69e1ab71
+		summarizeBy: none
+		sourceColumn: contract_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column recency_score
+		dataType: int64
+		formatString: 0
+		lineageTag: 44b61bf6-54c2-4294-a1a0-462eb0e51297
+		summarizeBy: sum
+		sourceColumn: recency_score
+
+		annotation SummarizationSetBy = Automatic
+
+	column monetary_score
+		dataType: int64
+		formatString: 0
+		lineageTag: 1be8e296-00ce-4543-a43a-a1f23c9e3275
+		summarizeBy: sum
+		sourceColumn: monetary_score
+
+		annotation SummarizationSetBy = Automatic
+
+	column engagement_score
+		dataType: int64
+		formatString: 0
+		lineageTag: f773a38f-c6e9-41dc-81b8-1157dabfb995
+		summarizeBy: sum
+		sourceColumn: engagement_score
+
+		annotation SummarizationSetBy = Automatic
+
+	column churn_risk_score
+		dataType: int64
+		formatString: 0
+		lineageTag: 45e146ff-6fb2-4a29-b96b-f1c91315f56b
+		summarizeBy: sum
+		sourceColumn: churn_risk_score
+
+		annotation SummarizationSetBy = Automatic
+
+	column churn_risk_tier
+		dataType: string
+		lineageTag: 7225a7b6-1d1f-46c5-9fc8-0e452150e074
+		summarizeBy: none
+		sourceColumn: churn_risk_tier
+
+		annotation SummarizationSetBy = Automatic
+
+	column priority_flag
+		dataType: string
+		lineageTag: 87c5a48c-afce-4544-8806-29a0b7125a11
+		summarizeBy: none
+		sourceColumn: priority_flag
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fct_churn_signals = m
+		mode: import
+		source =
+				let
+				    Source = PostgreSQL.Database("localhost", "neobank_db"),
+				    dbt_dev_fct_churn_signals = Source{[Schema="dbt_dev",Item="fct_churn_signals"]}[Data]
+				in
+				    dbt_dev_fct_churn_signals
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

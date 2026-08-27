@@ -1,0 +1,109 @@
+table fct_mau_arpu
+	lineageTag: ad4909fb-16ff-49fc-abb2-42f82dfbc5de
+
+	column transaction_month
+		dataType: string
+		lineageTag: 5657ce82-741b-4154-9d1c-4d0a526c649f
+		summarizeBy: none
+		sourceColumn: transaction_month
+
+		annotation SummarizationSetBy = Automatic
+
+	column emirate
+		dataType: string
+		lineageTag: 41af69a5-9253-4a28-ab48-2a7cdf93a1e8
+		summarizeBy: none
+		sourceColumn: emirate
+
+		annotation SummarizationSetBy = Automatic
+
+	column mau
+		dataType: int64
+		formatString: 0
+		lineageTag: 00f335f1-a44d-4172-a9b7-66f6ec2c031f
+		summarizeBy: sum
+		sourceColumn: mau
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_transactions
+		dataType: int64
+		formatString: 0
+		lineageTag: e7f68c4c-bf31-4da0-9e46-94bab83a8b41
+		summarizeBy: sum
+		sourceColumn: total_transactions
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_volume_aed
+		dataType: double
+		lineageTag: 5ad5a4b6-548e-4fe1-b7ca-c2a574a00a28
+		summarizeBy: sum
+		sourceColumn: total_volume_aed
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column avg_transaction_aed
+		dataType: double
+		lineageTag: 78e0d3b3-caaf-4d76-ae74-4bc4a6f0a2a0
+		summarizeBy: sum
+		sourceColumn: avg_transaction_aed
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column arpu_aed
+		dataType: double
+		lineageTag: df8411ae-022f-4e3c-9aac-ba86dbc958ce
+		summarizeBy: sum
+		sourceColumn: arpu_aed
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column prev_month_mau
+		dataType: int64
+		formatString: 0
+		lineageTag: 7126765a-4c8a-464c-bb8a-9e9899e22cfe
+		summarizeBy: sum
+		sourceColumn: prev_month_mau
+
+		annotation SummarizationSetBy = Automatic
+
+	column mau_mom_growth_pct
+		dataType: double
+		lineageTag: 30d127e5-2c5b-4b75-ae10-0619f8ef19ea
+		summarizeBy: sum
+		sourceColumn: mau_mom_growth_pct
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column volume_mom_growth_pct
+		dataType: double
+		lineageTag: e9f62c09-396f-466c-99d6-802a0165cd7f
+		summarizeBy: sum
+		sourceColumn: volume_mom_growth_pct
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition fct_mau_arpu = m
+		mode: import
+		source =
+				let
+				    Source = PostgreSQL.Database("localhost", "neobank_db"),
+				    dbt_dev_fct_mau_arpu = Source{[Schema="dbt_dev",Item="fct_mau_arpu"]}[Data]
+				in
+				    dbt_dev_fct_mau_arpu
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

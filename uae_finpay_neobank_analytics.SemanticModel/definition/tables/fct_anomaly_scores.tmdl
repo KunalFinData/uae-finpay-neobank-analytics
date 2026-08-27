@@ -1,0 +1,77 @@
+table fct_anomaly_scores
+	lineageTag: b7ca44db-1019-4223-b169-0150982270b3
+
+	column transaction_id
+		dataType: string
+		lineageTag: 935fa063-5285-4973-b521-8a7a931f4da5
+		summarizeBy: none
+		sourceColumn: transaction_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_id
+		dataType: string
+		lineageTag: d6acea45-fe0b-4239-9711-122e8e4e5078
+		summarizeBy: none
+		sourceColumn: customer_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column emirate
+		dataType: string
+		lineageTag: 9bc9e7b5-58c5-486d-b22d-7ae0cf519f2a
+		summarizeBy: none
+		sourceColumn: emirate
+
+		annotation SummarizationSetBy = Automatic
+
+	column amount_aed
+		dataType: double
+		lineageTag: d2773b15-51d4-42f6-a8dd-2c2d570f0efc
+		summarizeBy: sum
+		sourceColumn: amount_aed
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column is_anomaly
+		dataType: int64
+		formatString: 0
+		lineageTag: 6188b452-4945-44df-b7d0-135fb08d40c8
+		summarizeBy: sum
+		sourceColumn: is_anomaly
+
+		annotation SummarizationSetBy = Automatic
+
+	column anomaly_confidence
+		dataType: double
+		lineageTag: 80e4b2b7-4cfa-4cc1-bdf2-a1ce932d8948
+		summarizeBy: sum
+		sourceColumn: anomaly_confidence
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column anomaly_priority
+		dataType: string
+		lineageTag: 07bcbea2-5e3e-43d2-a30b-6011488f0081
+		summarizeBy: none
+		sourceColumn: anomaly_priority
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fct_anomaly_scores = m
+		mode: import
+		source =
+				let
+				    Source = PostgreSQL.Database("localhost", "neobank_db"),
+				    dbt_dev_fct_anomaly_scores = Source{[Schema="dbt_dev",Item="fct_anomaly_scores"]}[Data]
+				in
+				    dbt_dev_fct_anomaly_scores
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

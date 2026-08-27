@@ -1,0 +1,83 @@
+relationship AutoDetected_b4d4832f-d2b3-44ab-ae59-2c9abfabad77
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: fct_churn_signals.customer_id
+	toColumn: fct_churn_predictions.customer_id
+
+relationship AutoDetected_1518cc48-9027-4694-8dec-280598629011
+	fromColumn: fct_anomaly_scores.emirate
+	toColumn: fct_onboarding_funnel.emirate
+
+relationship AutoDetected_c2a08343-eac6-449b-82f1-3b3268d42e58
+	fromColumn: fct_cac_ltv.emirate
+	toColumn: fct_onboarding_funnel.emirate
+
+relationship AutoDetected_2fdac80e-a0ce-444a-a204-847fe3f37b7a
+	fromColumn: fct_churn_predictions.emirate
+	toColumn: fct_onboarding_funnel.emirate
+
+relationship AutoDetected_0e9e9f5f-7976-4d3a-a1bf-2c076cc95793
+	isActive: false
+	fromColumn: fct_churn_signals.emirate
+	toColumn: fct_onboarding_funnel.emirate
+
+relationship AutoDetected_03cbaab6-be2d-4f41-9093-ddb939330a22
+	fromColumn: fct_mau_arpu.emirate
+	toColumn: fct_onboarding_funnel.emirate
+
+relationship AutoDetected_b311812f-87b6-4cd9-a2de-084985eebe55
+	fromColumn: fct_segment_performance.emirate
+	toColumn: fct_onboarding_funnel.emirate
+
+relationship AutoDetected_d98e715e-ee12-41be-9efa-ee43c5c6d022
+	fromColumn: fct_wallet_adoption.emirate
+	toColumn: fct_onboarding_funnel.emirate
+
+relationship 299459aa-bc2a-4c4f-add7-6b80b76157ec
+	joinOnDateBehavior: datePartOnly
+	fromColumn: DimDate.Date
+	toColumn: LocalDateTable_756a0044-2ad9-4ffa-b815-757db50bbe48.Date
+
+relationship 44d887e5-b00a-bf17-095f-6deb7d7f9cce
+	fromColumn: fct_cac_ltv.emirate
+	toColumn: DimEmirate.Emirate
+
+relationship 69e3b9cd-d653-69e2-dbc2-b64094a84c2a
+	fromColumn: fct_churn_predictions.emirate
+	toColumn: DimEmirate.Emirate
+
+relationship eb09eb4f-8e84-63d5-ad06-7434c3edbcbf
+	fromColumn: fct_anomaly_scores.emirate
+	toColumn: DimEmirate.Emirate
+
+relationship 09ce74ec-4798-af74-d5c3-27e810a91864
+	fromColumn: fct_segment_performance.emirate
+	toColumn: DimEmirate.Emirate
+
+relationship 8a15afdd-09d0-29a0-0422-31d5905135a6
+	fromColumn: fct_mau_arpu.emirate
+	toColumn: DimEmirate.Emirate
+
+relationship 29fbb03d-6fc9-871e-d793-70c805de1dbf
+	fromColumn: fct_wallet_adoption.emirate
+	toColumn: DimEmirate.Emirate
+
+relationship 8b762860-38a7-f859-5151-8a76259ca053
+	isActive: false
+	fromColumn: fct_churn_signals.emirate
+	toColumn: DimEmirate.Emirate
+
+relationship 02c661fc-2058-d278-1289-cbb44c7f8352
+	fromColumn: fct_mau_arpu.transaction_month
+	toColumn: DimMonth.YearMonth
+
+relationship f3314192-3c52-6267-1dc2-07f62b61a7a1
+	fromColumn: fct_wallet_adoption.transaction_month
+	toColumn: DimMonth.YearMonth
+
+relationship 547c5cef-12b9-3a66-9a32-e797e0981fc1
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: fct_cohort_retention.cohort_month
+	toColumn: DimMonth.YearMonth
+

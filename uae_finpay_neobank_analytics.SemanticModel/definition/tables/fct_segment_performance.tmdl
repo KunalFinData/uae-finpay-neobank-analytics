@@ -1,0 +1,146 @@
+table fct_segment_performance
+	lineageTag: 8e33ea4c-94f4-4077-8262-3f25bf5eb0b7
+
+	column profession
+		dataType: string
+		lineageTag: 9bd6e2ae-deeb-4a12-ae46-21e900b3a392
+		summarizeBy: none
+		sourceColumn: profession
+
+		annotation SummarizationSetBy = Automatic
+
+	column emirate
+		dataType: string
+		lineageTag: d4ac3fb2-2547-4b00-90fc-3fecb9700f19
+		summarizeBy: none
+		sourceColumn: emirate
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_count
+		dataType: int64
+		formatString: 0
+		lineageTag: 896c22e9-978d-49c6-83e4-67acabcec276
+		summarizeBy: sum
+		sourceColumn: customer_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column avg_cac_aed
+		dataType: double
+		lineageTag: 1b97272e-bf05-4c58-881d-de52a0bf8e89
+		summarizeBy: sum
+		sourceColumn: avg_cac_aed
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column avg_ltv_aed
+		dataType: double
+		lineageTag: 4795524f-0524-47c6-a88c-8eb49216963c
+		summarizeBy: sum
+		sourceColumn: avg_ltv_aed
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column avg_monthly_revenue_aed
+		dataType: double
+		lineageTag: a6a7b466-8ac7-4bcd-891d-f5c5bed437f0
+		summarizeBy: sum
+		sourceColumn: avg_monthly_revenue_aed
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column avg_payback_months
+		dataType: double
+		lineageTag: e9eb5727-9178-48b3-9309-6556c502bdea
+		summarizeBy: sum
+		sourceColumn: avg_payback_months
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ltv_cac_ratio
+		dataType: double
+		lineageTag: 730f2380-3e57-4bb3-9cfd-5cd6316d941d
+		summarizeBy: sum
+		sourceColumn: ltv_cac_ratio
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column kyc_completed_count
+		dataType: int64
+		formatString: 0
+		lineageTag: aec137cd-4988-426f-ba6b-340438d05797
+		summarizeBy: sum
+		sourceColumn: kyc_completed_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column kyc_rate_pct
+		dataType: double
+		lineageTag: ec0babca-1ea6-41ab-97d3-db5d745b36ac
+		summarizeBy: sum
+		sourceColumn: kyc_rate_pct
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column active_customers
+		dataType: int64
+		formatString: 0
+		lineageTag: 70b105c0-8dc2-47e0-9ab8-4bde4643fd98
+		summarizeBy: sum
+		sourceColumn: active_customers
+
+		annotation SummarizationSetBy = Automatic
+
+	column active_rate_pct
+		dataType: double
+		lineageTag: 6dc893ea-8a14-4d63-8794-9047c96519b6
+		summarizeBy: sum
+		sourceColumn: active_rate_pct
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ltv_rank
+		dataType: int64
+		formatString: 0
+		lineageTag: 7a93246c-2fca-4ad0-a249-5911637edd4a
+		summarizeBy: sum
+		sourceColumn: ltv_rank
+
+		annotation SummarizationSetBy = Automatic
+
+	column segment_strategy
+		dataType: string
+		lineageTag: 1cc4fa0f-ebb8-489b-8205-daf8129761ed
+		summarizeBy: none
+		sourceColumn: segment_strategy
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fct_segment_performance = m
+		mode: import
+		source =
+				let
+				    Source = PostgreSQL.Database("localhost", "neobank_db"),
+				    dbt_dev_fct_segment_performance = Source{[Schema="dbt_dev",Item="fct_segment_performance"]}[Data]
+				in
+				    dbt_dev_fct_segment_performance
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,24 @@
+table DimEmirate
+	lineageTag: 39846e79-6c3b-44ff-b94f-e2f585bb8a35
+
+	column Emirate
+		lineageTag: 28e12c75-2bc7-4935-98e3-5a6dbc7cb7f2
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Emirate]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimEmirate = calculated
+		mode: import
+		source =
+				
+				DATATABLE(
+				    "Emirate", STRING,
+				    {
+				        {"DUBAI"}, {"ABU DHABI"}, {"SHARJAH"}, {"AJMAN"}
+				    }
+				)
+
+	annotation PBI_Id = 014d60be3d9443559840819b6cb2319c
+

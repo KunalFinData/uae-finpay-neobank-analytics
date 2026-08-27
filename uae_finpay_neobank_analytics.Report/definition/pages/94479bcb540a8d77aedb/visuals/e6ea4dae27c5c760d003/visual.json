@@ -1,0 +1,212 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "e6ea4dae27c5c760d003",
+  "position": {
+    "x": 16,
+    "y": 190,
+    "z": 2000,
+    "height": 350,
+    "width": 610,
+    "tabOrder": 2000
+  },
+  "visual": {
+    "visualType": "scatterChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fct_segment_performance"
+                    }
+                  },
+                  "Property": "profession"
+                }
+              },
+              "queryRef": "fct_segment_performance.profession",
+              "nativeQueryRef": "profession",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fct_segment_performance"
+                    }
+                  },
+                  "Property": "emirate"
+                }
+              },
+              "queryRef": "fct_segment_performance.emirate",
+              "nativeQueryRef": "emirate",
+              "active": false
+            }
+          ]
+        },
+        "Series": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fct_segment_performance"
+                    }
+                  },
+                  "Property": "segment_strategy"
+                }
+              },
+              "queryRef": "fct_segment_performance.segment_strategy",
+              "nativeQueryRef": "segment_strategy"
+            }
+          ]
+        },
+        "Tooltips": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "fct_segment_performance"
+                        }
+                      },
+                      "Property": "profession"
+                    }
+                  },
+                  "Function": 3
+                }
+              },
+              "queryRef": "Min(fct_segment_performance.profession)",
+              "nativeQueryRef": "First profession"
+            }
+          ]
+        },
+        "X": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "fct_segment_performance"
+                        }
+                      },
+                      "Property": "avg_cac_aed"
+                    }
+                  },
+                  "Function": 1
+                }
+              },
+              "queryRef": "Average(fct_segment_performance.avg_cac_aed)",
+              "nativeQueryRef": "Average of avg_cac_aed",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "fct_segment_performance"
+                        }
+                      },
+                      "Property": "avg_ltv_aed"
+                    }
+                  },
+                  "Function": 1
+                }
+              },
+              "queryRef": "Average(fct_segment_performance.avg_ltv_aed)",
+              "nativeQueryRef": "Average of avg_ltv_aed"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "categoryLabels": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "zoom": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "bubbles": [
+        {
+          "properties": {
+            "markerShape": {
+              "expr": {
+                "Literal": {
+                  "Value": "'circle'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Segment Economics: LTV vs CAC by Profession'"
+                }
+              }
+            },
+            "alignment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'center'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

@@ -1,0 +1,34 @@
+model Model
+	culture: en-IN
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-IN
+	valueFilterBehavior: independent
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["fct_anomaly_scores","fct_cac_ltv","fct_churn_predictions","fct_churn_signals","fct_cohort_retention","fct_mau_arpu","fct_onboarding_funnel","fct_segment_performance","fct_wallet_adoption"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table fct_anomaly_scores
+ref table fct_cac_ltv
+ref table fct_churn_predictions
+ref table fct_churn_signals
+ref table fct_cohort_retention
+ref table fct_mau_arpu
+ref table fct_onboarding_funnel
+ref table fct_segment_performance
+ref table fct_wallet_adoption
+ref table DimDate
+ref table DateTableTemplate_924e1890-4fee-42f5-9eb9-3b1f8ef839c0
+ref table LocalDateTable_756a0044-2ad9-4ffa-b815-757db50bbe48
+ref table DimEmirate
+ref table DimMonth
+ref table Table
+ref table _Measures
+
+ref cultureInfo en-IN
+

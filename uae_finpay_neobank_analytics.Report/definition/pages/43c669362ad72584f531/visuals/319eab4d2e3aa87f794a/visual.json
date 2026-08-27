@@ -1,0 +1,185 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "319eab4d2e3aa87f794a",
+  "position": {
+    "x": 500,
+    "y": 190,
+    "z": 4000,
+    "height": 350,
+    "width": 752,
+    "tabOrder": 4000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fct_churn_predictions"
+                    }
+                  },
+                  "Property": "customer_id"
+                }
+              },
+              "queryRef": "fct_churn_predictions.customer_id",
+              "nativeQueryRef": "customer_id"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fct_churn_predictions"
+                    }
+                  },
+                  "Property": "emirate"
+                }
+              },
+              "queryRef": "fct_churn_predictions.emirate",
+              "nativeQueryRef": "emirate"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "fct_churn_predictions"
+                        }
+                      },
+                      "Property": "churn_probability_pct"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(fct_churn_predictions.churn_probability_pct)",
+              "nativeQueryRef": "Churn Probability %",
+              "displayName": "Churn Probability %"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fct_churn_predictions"
+                    }
+                  },
+                  "Property": "churn_alert_level"
+                }
+              },
+              "queryRef": "fct_churn_predictions.churn_alert_level",
+              "nativeQueryRef": "churn_alert_level"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "fct_churn_predictions"
+                        }
+                      },
+                      "Property": "revenue_at_risk_aed"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(fct_churn_predictions.revenue_at_risk_aed)",
+              "nativeQueryRef": "Revenue at Risk (AED)",
+              "displayName": "Revenue at Risk (AED)"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Aggregation": {
+                "Expression": {
+                  "Column": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "fct_churn_predictions"
+                      }
+                    },
+                    "Property": "churn_probability_pct"
+                  }
+                },
+                "Function": 0
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "objects": {
+      "columnHeaders": [
+        {
+          "properties": {
+            "columnAdjustment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'growToFit'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "stylePreset": [
+        {
+          "properties": {
+            "name": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Default'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Top Churn-Risk Customers'"
+                }
+              }
+            },
+            "alignment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'center'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

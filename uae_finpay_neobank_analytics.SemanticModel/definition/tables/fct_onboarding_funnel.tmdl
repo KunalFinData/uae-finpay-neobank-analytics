@@ -1,0 +1,110 @@
+table fct_onboarding_funnel
+	lineageTag: d13f2fd6-593d-4c99-a00b-9b10bab459be
+
+	column emirate
+		dataType: string
+		lineageTag: 49705267-6504-4d31-b845-caca4bfbf9c0
+		summarizeBy: none
+		sourceColumn: emirate
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_signups
+		dataType: int64
+		formatString: 0
+		lineageTag: 8d1aa118-b46a-4aee-8982-70fa0bbe09b7
+		summarizeBy: sum
+		sourceColumn: total_signups
+
+		annotation SummarizationSetBy = Automatic
+
+	column completed_kyc
+		dataType: int64
+		formatString: 0
+		lineageTag: 7e9e97cc-e40a-4f78-be83-9ac0f6d31a72
+		summarizeBy: sum
+		sourceColumn: completed_kyc
+
+		annotation SummarizationSetBy = Automatic
+
+	column made_first_transaction
+		dataType: int64
+		formatString: 0
+		lineageTag: 1f2be3ac-fc89-4d82-97ef-0f80b03f7202
+		summarizeBy: sum
+		sourceColumn: made_first_transaction
+
+		annotation SummarizationSetBy = Automatic
+
+	column currently_active
+		dataType: int64
+		formatString: 0
+		lineageTag: 5cfaec92-d1ef-4063-983c-07f15675dd54
+		summarizeBy: sum
+		sourceColumn: currently_active
+
+		annotation SummarizationSetBy = Automatic
+
+	column kyc_conversion_rate_pct
+		dataType: double
+		lineageTag: ed8039ac-46d6-4fb9-94dc-0e5efbb32fb0
+		summarizeBy: sum
+		sourceColumn: kyc_conversion_rate_pct
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column activation_rate_pct
+		dataType: double
+		lineageTag: 40045947-d797-4afe-9552-a0859ba74f75
+		summarizeBy: sum
+		sourceColumn: activation_rate_pct
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column overall_active_rate_pct
+		dataType: double
+		lineageTag: 0b896d01-ced7-420f-bb2d-c0b3db2031a2
+		summarizeBy: sum
+		sourceColumn: overall_active_rate_pct
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column avg_kyc_days
+		dataType: double
+		lineageTag: 65b1424e-5b96-47a0-b877-e05a2271f99a
+		summarizeBy: sum
+		sourceColumn: avg_kyc_days
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column avg_days_to_first_txn
+		dataType: double
+		lineageTag: 6ada0dbf-3f78-49f9-8ee5-abb866bbcc97
+		summarizeBy: sum
+		sourceColumn: avg_days_to_first_txn
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition fct_onboarding_funnel = m
+		mode: import
+		source =
+				let
+				    Source = PostgreSQL.Database("localhost", "neobank_db"),
+				    dbt_dev_fct_onboarding_funnel = Source{[Schema="dbt_dev",Item="fct_onboarding_funnel"]}[Data]
+				in
+				    dbt_dev_fct_onboarding_funnel
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

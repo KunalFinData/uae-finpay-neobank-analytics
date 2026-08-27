@@ -1,0 +1,103 @@
+table fct_churn_predictions
+	lineageTag: ff4ba86e-bfba-4944-820d-014d37bb7f6a
+
+	column customer_id
+		dataType: string
+		lineageTag: c770fcd6-75df-40b7-b1be-9e218eb993f1
+		summarizeBy: none
+		sourceColumn: customer_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column emirate
+		dataType: string
+		lineageTag: f6c0a347-1b50-417d-b9b3-b29fa6b0f424
+		summarizeBy: none
+		sourceColumn: emirate
+
+		annotation SummarizationSetBy = Automatic
+
+	column churn_probability_pct
+		dataType: double
+		lineageTag: 2b606536-fed9-4867-8ecf-9e33f2f09309
+		summarizeBy: sum
+		sourceColumn: churn_probability_pct
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column predicted_churn_flag
+		dataType: int64
+		formatString: 0
+		lineageTag: 19c8df5a-e20b-42ce-a937-410bb4dbdee1
+		summarizeBy: sum
+		sourceColumn: predicted_churn_flag
+
+		annotation SummarizationSetBy = Automatic
+
+	column monthly_revenue_aed
+		dataType: double
+		lineageTag: 47a3c022-cf44-4a86-848e-982d76be7f83
+		summarizeBy: sum
+		sourceColumn: monthly_revenue_aed
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column segment_label
+		dataType: string
+		lineageTag: b8ddb0e6-0d2e-4f5d-b54d-84ba72a64319
+		summarizeBy: none
+		sourceColumn: segment_label
+
+		annotation SummarizationSetBy = Automatic
+
+	column churn_alert_level
+		dataType: string
+		lineageTag: 6bf9f855-769a-4a1d-a298-44da37073acc
+		summarizeBy: none
+		sourceColumn: churn_alert_level
+
+		annotation SummarizationSetBy = Automatic
+
+	column revenue_at_risk_aed
+		dataType: double
+		lineageTag: 48d07ea1-70fa-4d23-85f2-3ef1279c58e7
+		summarizeBy: sum
+		sourceColumn: revenue_at_risk_aed
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Churn Alert Sort' =
+			
+			SWITCH(
+			    TRIM(UPPER([churn_alert_level])),
+			    "CRITICAL", 1,
+			    "HIGH", 2,
+			    "MEDIUM", 3,
+			    "LOW", 4,
+			    99
+			)
+		formatString: 0
+		lineageTag: da81edbf-8b50-488b-91e5-140ce1de4b09
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fct_churn_predictions = m
+		mode: import
+		source =
+				let
+				    Source = PostgreSQL.Database("localhost", "neobank_db"),
+				    dbt_dev_fct_churn_predictions = Source{[Schema="dbt_dev",Item="fct_churn_predictions"]}[Data]
+				in
+				    dbt_dev_fct_churn_predictions
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

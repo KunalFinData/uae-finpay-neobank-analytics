@@ -1,0 +1,138 @@
+table fct_cohort_retention
+	lineageTag: 6a89dc23-600f-4110-ab3c-93787a4c3a34
+
+	column cohort_month
+		dataType: string
+		lineageTag: d433bddc-2538-4b72-aac6-0984a8b14ad0
+		summarizeBy: none
+		sourceColumn: cohort_month
+
+		annotation SummarizationSetBy = Automatic
+
+	column cohort_size
+		dataType: int64
+		formatString: 0
+		lineageTag: f90453d7-a974-47c3-9469-e81d2a8d7ee6
+		summarizeBy: sum
+		sourceColumn: cohort_size
+
+		annotation SummarizationSetBy = Automatic
+
+	column retained_m1
+		dataType: int64
+		formatString: 0
+		lineageTag: 8c053585-ba98-4ed8-b384-f92e55b36687
+		summarizeBy: sum
+		sourceColumn: retained_m1
+
+		annotation SummarizationSetBy = Automatic
+
+	column retained_m2
+		dataType: int64
+		formatString: 0
+		lineageTag: 0d3cb38a-a809-4f39-bce7-456572331070
+		summarizeBy: sum
+		sourceColumn: retained_m2
+
+		annotation SummarizationSetBy = Automatic
+
+	column retained_m3
+		dataType: int64
+		formatString: 0
+		lineageTag: 5d466cf6-5938-416a-b58a-ac31a51ff701
+		summarizeBy: sum
+		sourceColumn: retained_m3
+
+		annotation SummarizationSetBy = Automatic
+
+	column retained_m6
+		dataType: int64
+		formatString: 0
+		lineageTag: 989b5a2c-ce0e-4637-81af-5df205a4e98b
+		summarizeBy: sum
+		sourceColumn: retained_m6
+
+		annotation SummarizationSetBy = Automatic
+
+	column retained_m12
+		dataType: int64
+		formatString: 0
+		lineageTag: 987657d5-b264-4a40-aeec-6d49f15cd74f
+		summarizeBy: sum
+		sourceColumn: retained_m12
+
+		annotation SummarizationSetBy = Automatic
+
+	column retention_m1_pct
+		dataType: double
+		lineageTag: 8499c01c-6c99-4193-9251-40eacb82604d
+		summarizeBy: sum
+		sourceColumn: retention_m1_pct
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column retention_m2_pct
+		dataType: double
+		lineageTag: 8cdc8e9b-07a2-4e02-ae5c-2bd06065636d
+		summarizeBy: sum
+		sourceColumn: retention_m2_pct
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column retention_m3_pct
+		dataType: double
+		lineageTag: 9945ccea-4c26-4d0f-b550-4538449f3606
+		summarizeBy: sum
+		sourceColumn: retention_m3_pct
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column retention_m6_pct
+		dataType: double
+		lineageTag: 8e73dcf3-9b6f-4d51-b0b9-71bb04ca0700
+		summarizeBy: sum
+		sourceColumn: retention_m6_pct
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column retention_m12_pct
+		dataType: double
+		lineageTag: 754cf2fd-604c-4be9-acda-c0c2d448598b
+		summarizeBy: sum
+		sourceColumn: retention_m12_pct
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column avg_revenue_aed
+		dataType: double
+		lineageTag: b97cc57a-e3c5-4fe8-8f81-5dfd314b6f2a
+		summarizeBy: sum
+		sourceColumn: avg_revenue_aed
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition fct_cohort_retention = m
+		mode: import
+		source =
+				let
+				    Source = PostgreSQL.Database("localhost", "neobank_db"),
+				    dbt_dev_fct_cohort_retention = Source{[Schema="dbt_dev",Item="fct_cohort_retention"]}[Data]
+				in
+				    dbt_dev_fct_cohort_retention
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

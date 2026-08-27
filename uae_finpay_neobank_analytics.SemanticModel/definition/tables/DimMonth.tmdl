@@ -1,0 +1,37 @@
+table DimMonth
+	lineageTag: 108370f5-28a6-4571-a3f5-55bc8c75d713
+
+	column YearMonth
+		lineageTag: 38bfc22c-d024-425f-94b1-3ca70516769a
+		summarizeBy: none
+		sourceColumn: [YearMonth]
+		sortByColumn: MonthSort
+
+		annotation SummarizationSetBy = Automatic
+
+	column MonthSort
+		dataType: int64
+		isHidden
+		lineageTag: 0da3c491-0e9a-440e-954e-7d001f6e07a6
+		summarizeBy: none
+		sourceColumn: [MonthSort]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimMonth = calculated
+		mode: import
+		source =
+				
+				ADDCOLUMNS(
+				    DISTINCT(
+				        UNION(
+				            SELECTCOLUMNS(fct_mau_arpu, "YearMonth", fct_mau_arpu[transaction_month]),
+				            SELECTCOLUMNS(fct_wallet_adoption, "YearMonth", fct_wallet_adoption[transaction_month]),
+				            SELECTCOLUMNS(fct_cohort_retention, "YearMonth", fct_cohort_retention[cohort_month])
+				        )
+				    ),
+				    "MonthSort", VALUE(SUBSTITUTE([YearMonth], "-", ""))
+				)
+
+	annotation PBI_Id = cb56962ca450454eb75459537c14cf0d
+

@@ -1,0 +1,127 @@
+table fct_cac_ltv
+	lineageTag: 2c26ffeb-0992-4293-a44b-32f9a7316013
+
+	column emirate
+		dataType: string
+		lineageTag: e12a16c8-2955-4fee-808e-55888818bfa0
+		summarizeBy: none
+		sourceColumn: emirate
+
+		annotation SummarizationSetBy = Automatic
+
+	column acquisition_channel
+		dataType: string
+		lineageTag: 9c571265-0916-444b-a363-fbda5615b24b
+		summarizeBy: none
+		sourceColumn: acquisition_channel
+
+		annotation SummarizationSetBy = Automatic
+
+	column profession
+		dataType: string
+		lineageTag: dcde7e80-1eb0-421a-b209-440b375f28ca
+		summarizeBy: none
+		sourceColumn: profession
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_count
+		dataType: int64
+		formatString: 0
+		lineageTag: 28b801b9-3f12-4168-98f5-0192c00b5296
+		summarizeBy: sum
+		sourceColumn: customer_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column avg_cac_aed
+		dataType: double
+		lineageTag: 7975e792-6b4a-4fdf-92b2-39c194ad17e7
+		summarizeBy: sum
+		sourceColumn: avg_cac_aed
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column avg_ltv_aed
+		dataType: double
+		lineageTag: 7335bfba-99e4-4bc7-8bab-75f2d35c2fed
+		summarizeBy: sum
+		sourceColumn: avg_ltv_aed
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column avg_monthly_revenue_aed
+		dataType: double
+		lineageTag: e7a34927-dbd1-4804-bd8d-5c86e51932ed
+		summarizeBy: sum
+		sourceColumn: avg_monthly_revenue_aed
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column avg_payback_months
+		dataType: double
+		lineageTag: cbe0b780-7ed7-4073-9658-159b4ce848f7
+		summarizeBy: sum
+		sourceColumn: avg_payback_months
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ltv_to_cac_ratio
+		dataType: double
+		lineageTag: c24a9be7-18c5-4222-a034-32b7733989c0
+		summarizeBy: sum
+		sourceColumn: ltv_to_cac_ratio
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column total_ltv_aed
+		dataType: double
+		lineageTag: 2ef98faa-134a-4b02-bfec-d73dde9245f6
+		summarizeBy: sum
+		sourceColumn: total_ltv_aed
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column total_cac_aed
+		dataType: double
+		lineageTag: f559fcb3-dbfa-4422-b7a2-8bd38e05962c
+		summarizeBy: sum
+		sourceColumn: total_cac_aed
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column unit_economics_status
+		dataType: string
+		lineageTag: 7b727b9f-5d4f-49fb-8dbd-f0142a6367d9
+		summarizeBy: none
+		sourceColumn: unit_economics_status
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fct_cac_ltv = m
+		mode: import
+		source =
+				let
+				    Source = PostgreSQL.Database("localhost", "neobank_db"),
+				    dbt_dev_fct_cac_ltv = Source{[Schema="dbt_dev",Item="fct_cac_ltv"]}[Data]
+				in
+				    dbt_dev_fct_cac_ltv
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
