@@ -1,3 +1,4 @@
+import os
 """
 UAE FinPay Neobank — Data Preparation Script
 =============================================
@@ -25,7 +26,7 @@ print("=" * 55)
 connection_url = URL.create(
     drivername="postgresql+psycopg2",
     username="postgres",
-    password="Hellboy@0404",
+    password=os.environ["NEOBANK_DB_PASSWORD"],
     host="localhost",
     port=5432,
     database="neobank_db"
